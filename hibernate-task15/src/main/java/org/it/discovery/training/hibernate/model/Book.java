@@ -40,12 +40,12 @@ public class Book extends BaseEntity {
     /**
      * Publishing year
      */
-    private int year;
+    private Integer year;
 
     /**
      * Total number of pages
      */
-    private int pages;
+    private Integer pages;
 
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     private List<Hit> hits;

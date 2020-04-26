@@ -1,4 +1,4 @@
-package org.it.discovery.training.hibernate;
+package org.it.discovery.training.hibernate.service;
 
 import lombok.RequiredArgsConstructor;
 import org.it.discovery.training.hibernate.model.Book;
@@ -19,6 +19,8 @@ public class LibraryService {
     private final PublisherRepository repository;
 
     private final PersonRepository personRepository;
+
+    private final BookService bookService;
 
     @PostConstruct
     public void init() {
@@ -46,5 +48,7 @@ public class LibraryService {
         System.out.println(repository.findById(publisher.getId()));
 
         System.out.println("Authors without books = " + personRepository.findPersonWithoutBooks());
+
+        System.out.println("Books with name Hibernate = " + bookService.searchBooks("Hibernate", 0));
     }
 }

@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public abstract class BaseEntity {
 	@Id
 	@GeneratedValue
-	private int id;
+	private Integer id;
 
 	private LocalDateTime created;
 
