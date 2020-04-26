@@ -1,9 +1,6 @@
 spring:
   jpa:
     database-platform: H2
-    properties:
-      hibernate:
-        physical_naming_strategy: org.it.discovery.training.hibernate.naming.UpperCaseNamingStrategy
 logging:
   level:
     org:
