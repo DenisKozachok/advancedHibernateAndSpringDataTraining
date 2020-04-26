@@ -94,9 +94,9 @@ public class HqlBookRepository implements BookRepository {
                     "select new org.it.discovery.training.hibernate.model.tuple.BookInfo(id, name) FROM Book "+
                             "WHERE id=:id", BookInfo.class);
             query.setParameter("id", bookId);
-            BookInfo book = query.getSingleResult();
+            List<BookInfo> books = query.getResultList();
             session.getTransaction().commit();
-            return book;
+            return books.isEmpty()? null: books.get(0);
         } catch (Exception ex) {
             if (session != null && session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
