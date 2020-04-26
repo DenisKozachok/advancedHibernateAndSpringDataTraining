@@ -1,31 +1,43 @@
 package org.it.discovery.training.hibernate.model;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Book publisher
- * @author morenets
  *
+ * @author morenets
  */
-public class Publisher extends BaseEntity{
-	private String name;
-	
-	private List<Book> books;
+@Getter
+@Setter
+@Table
+@Entity
+@ToString
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+public class Publisher extends BaseEntity {
+    private String name;
 
-	public String getName() {
-		return name;
-	}
+    @Embedded
+    private Address address;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "publisher")
+    private List<Book> books;
 
-	public List<Book> getBooks() {
-		return books;
-	}
+    public List<Book> getBooks() {
+        return books;
+    }
 
-	public void setBooks(List<Book> books) {
-		this.books = books;
-	}
-
+    public void addBook(Book book) {
+        if (books == null) {
+            books = new ArrayList<>();
+        }
+        books.add(book);
+    }
 }

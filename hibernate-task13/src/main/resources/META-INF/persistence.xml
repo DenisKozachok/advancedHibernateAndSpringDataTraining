@@ -21,6 +21,7 @@
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.cache.region.factory_class"
 				value="org.hibernate.cache.ehcache.EhCacheRegionFactory" />
+			<property name="hibernate.physical_naming_strategy" value="org.it.discovery.training.hibernate.naming.UpperCaseNamingStrategy"/>
 		</properties>
 	</persistence-unit>
 </persistence>

@@ -1,7 +1,17 @@
 package org.it.discovery.training.hibernate.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 
+@Table
+@Entity
+@Getter @Setter
 public class Hit extends BaseEntity{
 	private String ip;
 	
@@ -9,28 +19,8 @@ public class Hit extends BaseEntity{
 	
 	private LocalDateTime viewed;
 
-	public String getIp() {
-		return ip;
-	}
-
-	public void setIp(String ip) {
-		this.ip = ip;
-	}
-
-	public String getBrowser() {
-		return browser;
-	}
-
-	public void setBrowser(String browser) {
-		this.browser = browser;
-	}
-
-	public LocalDateTime getViewed() {
-		return viewed;
-	}
-
-	public void setViewed(LocalDateTime viewed) {
-		this.viewed = viewed;
-	}	
+	@ManyToOne
+	@JoinColumn(name = "BOOK_ID")
+	private Book book;
 
 }

@@ -1,36 +1,22 @@
 package org.it.discovery.training.hibernate.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 
-public class BaseEntity {
+@Getter @Setter
+@MappedSuperclass
+public abstract class BaseEntity {
+	@Id
+	@GeneratedValue
 	private int id;
 	
 	private LocalDateTime created;
 	
 	private LocalDateTime modified;
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public LocalDateTime getCreated() {
-		return created;
-	}
-
-	public void setCreated(LocalDateTime created) {
-		this.created = created;
-	}
-
-	public LocalDateTime getModified() {
-		return modified;
-	}
-
-	public void setModified(LocalDateTime modified) {
-		this.modified = modified;
-	}
-	
 }
