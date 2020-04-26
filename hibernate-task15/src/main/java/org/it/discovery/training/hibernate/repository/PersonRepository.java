@@ -1,17 +1,18 @@
 package org.it.discovery.training.hibernate.repository;
 
-import java.util.List;
-
 import org.it.discovery.training.hibernate.model.Person;
 
+import java.util.List;
+
 public interface PersonRepository {
-	
+
 	/**
 	 * Returns all the persons that haven't written books
+	 *
 	 * @return
 	 */
 	List<Person> findPersonWithoutBooks();
-	
+
 	/**
 	 * Returns author who wrote maximum number of books
 	 * @return

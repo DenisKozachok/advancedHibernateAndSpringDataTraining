@@ -1,76 +1,63 @@
 package org.it.discovery.training.hibernate.model;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Formula;
+
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Book in a library
- * @author morenets
  *
+ * @author morenets
  */
+@Table
+@Entity
+@Getter
+@Setter
+@ToString(exclude = "hits")
+@NamedQuery(name = Book.QUERY_FIND_ALL, query = "FROM Book")
+@NamedQuery(name = Book.QUERY_FIND_BY_NAME, query = "FROM Book WHERE name=:name")
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Book extends BaseEntity {
-	private String name;
-	
-	private Person author;
-	
-	private Publisher publisher;
-	
-	/**
-	 * Publishing year
-	 */
-	private int year;
-	
-	/**
-	 * Total number of pages
-	 */
-	private int pages;
-	
-	private List<Hit> hits;
+    public static final String QUERY_FIND_ALL = "Book.findAll";
 
-	public String getName() {
-		return name;
-	}
+    public static final String QUERY_FIND_BY_NAME = "Book.findByName";
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    private String name;
 
-	public Person getAuthor() {
-		return author;
-	}
+    @OneToOne(cascade = CascadeType.ALL)
+    private Person author;
 
-	public void setAuthor(Person author) {
-		this.author = author;
-	}
+    @ManyToOne
+    @JoinColumn(name = "PUBLISHER_ID")
+    private Publisher publisher;
 
-	public Publisher getPublisher() {
-		return publisher;
-	}
+    /**
+     * Publishing year
+     */
+    private int year;
 
-	public void setPublisher(Publisher publisher) {
-		this.publisher = publisher;
-	}
+    /**
+     * Total number of pages
+     */
+    private int pages;
 
-	public int getYear() {
-		return year;
-	}
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+    private List<Hit> hits;
 
-	public void setYear(int year) {
-		this.year = year;
-	}
+    @Formula("(select count(hit.id) from HIT hit where hit.BOOK_ID=id)")
+    private Integer hitCount;
 
-	public int getPages() {
-		return pages;
-	}
-
-	public void setPages(int pages) {
-		this.pages = pages;
-	}
-
-	public List<Hit> getHits() {
-		return hits;
-	}
-
-	public void setHits(List<Hit> hits) {
-		this.hits = hits;
-	}
+    public void addHit(Hit hit) {
+        if (hits == null) {
+            hits = new ArrayList<>();
+        }
+        hits.add(hit);
+        hit.setBook(this);
+    }
 }

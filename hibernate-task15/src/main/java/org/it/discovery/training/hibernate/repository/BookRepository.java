@@ -1,8 +1,10 @@
 package org.it.discovery.training.hibernate.repository;
 
-import java.util.List;
-
 import org.it.discovery.training.hibernate.model.Book;
+import org.it.discovery.training.hibernate.model.tuple.BookInfo;
+import org.it.discovery.training.hibernate.model.tuple.LibraryInfo;
+
+import java.util.List;
 
 public interface BookRepository {
 	
@@ -20,15 +22,15 @@ public interface BookRepository {
 	List<Book> findWithName(String name);
 
 	/**
-	 * Returns all the books where name contains specified text
-	 * @param name
+	 * Returns all the books that has at least one hit
+	 *
 	 * @return
 	 */
-	List<Book> findLikeName(String text);
+	List<Book> findWithHits();
 
 	/**
 	 * Returns all the books where number of pages is greater than pages parameter
-	 * @param name
+	 * @param pages
 	 * @return
 	 */
 	List<Book> findWithMorePages(int pages);
@@ -42,17 +44,26 @@ public interface BookRepository {
 	 * @return
 	 */
 	List<Book> searchBooks(String name, int pages);
-	
+
 	/**
-	 * Returns overall number of pages for all the books 
+	 * Returns overall number of pages for all the books
+	 *
 	 * @return
 	 */
 	int findTotalPages();
-	
+
 	/**
 	 * Returns all the books sorted by name
+	 *
 	 * @return
 	 */
-	List<Book> findSortedBooks();	
+	List<Book> findSortedBooks();
+
+	/**
+	 * @return
+	 */
+	LibraryInfo findLibraryInfo();
+
+	BookInfo findBookInfo(int bookId);
 	
 }
