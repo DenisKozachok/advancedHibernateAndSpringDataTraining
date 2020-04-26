@@ -3,9 +3,7 @@ package org.it.discovery.training.hibernate.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter @Setter
@@ -18,5 +16,15 @@ public abstract class BaseEntity {
 	private LocalDateTime created;
 	
 	private LocalDateTime modified;
+
+	@PrePersist
+	public void onInsert() {
+		created = LocalDateTime.now();
+	}
+
+	@PreUpdate
+	public void onUpdate() {
+		modified = LocalDateTime.now();
+	}
 
 }

@@ -6,6 +6,7 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,5 +25,13 @@ public class Person extends BaseEntity{
 	 */
 	@OneToMany(mappedBy = "author")
 	private List<Book> books;
+
+	public void addBook(Book book) {
+		if(books == null) {
+			books = new ArrayList<>();
+		}
+		books.add(book);
+		book.setAuthor(this);
+	}
 
 }

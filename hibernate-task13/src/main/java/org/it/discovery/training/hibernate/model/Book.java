@@ -30,7 +30,7 @@ public class Book extends BaseEntity {
 
     private String name;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Person author;
 
     @ManyToOne

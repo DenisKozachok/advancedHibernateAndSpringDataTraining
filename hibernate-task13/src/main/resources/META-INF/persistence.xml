@@ -20,7 +20,7 @@
 			value="jdbc:h2:mem:db1" />
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.cache.region.factory_class"
-				value="org.hibernate.cache.ehcache.EhCacheRegionFactory" />
+				value="org.hibernate.cache.jcache.JCacheRegionFactory" />
 			<property name="hibernate.physical_naming_strategy" value="org.it.discovery.training.hibernate.naming.UpperCaseNamingStrategy"/>
 		</properties>
 	</persistence-unit>

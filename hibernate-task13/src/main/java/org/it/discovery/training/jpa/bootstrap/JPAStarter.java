@@ -2,7 +2,10 @@ package org.it.discovery.training.jpa.bootstrap;
 
 import org.it.discovery.training.hibernate.model.Book;
 import org.it.discovery.training.hibernate.model.Hit;
+import org.it.discovery.training.hibernate.model.Person;
 import org.it.discovery.training.hibernate.model.Publisher;
+import org.it.discovery.training.hibernate.repository.JpqlPersonRepository;
+import org.it.discovery.training.hibernate.repository.PersonRepository;
 import org.it.discovery.training.hibernate.repository.PublisherRepository;
 import org.it.discovery.training.hibernate.repository.jpa.JpaPublisherRepository;
 
@@ -25,6 +28,10 @@ public class JPAStarter {
 			book.setName("Hibernate");
 			publisher.addBook(book);
 
+			Person author = new Person();
+			author.setName("Gavin King");
+			author.addBook(book);
+
 			Hit hit = new Hit();
 			hit.setViewed(LocalDateTime.now());
 			hit.setBrowser("Chrome");
@@ -35,6 +42,9 @@ public class JPAStarter {
 			System.out.println(publisher);
 
 			System.out.println(repository.findById(publisher.getId()));
+
+			PersonRepository personRepository = new JpqlPersonRepository(emf);
+			System.out.println("Authors without books = " + personRepository.findPersonWithoutBooks());
 		} finally {
 			 emf.close();
 		}
